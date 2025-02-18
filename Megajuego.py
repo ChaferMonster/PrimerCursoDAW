@@ -42,6 +42,9 @@ class mago(personaje):
 class demonio(personaje):
     def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, desgaste):
         super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
+
+
+Print("Hugo es inutil")
         self.desgaste = desgaste
 
 class cerbero(personaje):
