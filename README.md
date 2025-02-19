@@ -18,6 +18,13 @@ Cosas a tener en cuenta:
     - Cuando un personaje muere debe aparecer como muerto.
     - Cuando un personaje muere, Dario debe aparecer contra el siguiente personaje que se escoja con la misma vida con la que se ha quedado. anteriormente.
     - Las pociones aumentan atributos como: vida, suerte, fuerza...
+    - Pociones
+        Fuerza: Aumenta el daño de un personaje en un 25% durante 3 turnos.
+        Curación: Cura al personaje 500 puntos de vida.
+        Supercuración: Cura al personaje 1,500 puntos de vida.
+    - Ajuste de vida
+        Jefe final: 50,000 (un poco más para compensar las curaciones)
+        Personajes: 3,500 (un poco más para resistir más y usar las curaciones)
 
 Atributos:
     - Nombre
