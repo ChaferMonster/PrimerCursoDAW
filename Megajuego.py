@@ -4,7 +4,6 @@ class personaje():
     def __init__(self, nombre, vida, vivo, ataque, defensa, suerte, descripcion):
         self.nombre = nombre
         self.vida = vida
-        self.estamina = estamina
         self.vivo = vivo
         self.ataque = ataque
         self.defensa = defensa
