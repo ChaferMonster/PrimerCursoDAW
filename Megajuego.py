@@ -1,49 +1,38 @@
-import tkinter
+import tkinter as tk
 
-class personaje():
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion):
-        self.nombre = nombre
-        self.vida = vida
-        self.estamina = estamina
-        self.vivo = vivo
-        self.ataque = ataque
-        self.defensa = defensa
-        self.suerte = suerte
-        self.descripcion = descripcion
-        pass
+ventana_principal = tk.Tk()
+ventana_principal.geometry("650x400")
 
+try:
+    imagen_titulo = tk.PhotoImage(file="titulo_juego.png")
+except FileNotFoundError:
+    print("Error: No se encontró la imagen del título.")
+    exit()
 
-class tanque(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, tipo, suerte, descripción, megadefensa):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, tipo, suerte, descripción)
-        self.megadefensa = megadefensa
+etiqueta_titulo = tk.Label(ventana_principal, image=imagen_titulo)
+etiqueta_titulo.pack()
 
+def comenzar_juego():
+    # Aquí va la lógica para iniciar el juego
+    print("¡Juego comenzado!")
 
-class asesino(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, evasion, critico):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
-        self.evasion = evasion
-        self.critico = critico
+def mostrar_texto():
+    # Oculta el botón "Abrir ventana emergente" y el botón "Comenzar juego"
+    boton_emergente.pack_forget()
+    boton_comenzar.pack_forget()
+    etiqueta_titulo.pack_forget()  # Oculta la imagen del título
 
+    # Muestra el texto en la ventana principal
+    texto = "Esta es la primera línea.\nEsta es la segunda línea.\nEsta es la tercera línea."
+    etiqueta_texto = tk.Label(ventana_principal, text=texto, justify=tk.LEFT)
+    etiqueta_texto.pack(padx=20, pady=20)
 
-class heroe(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, critico, golpe_valor):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
-        self.critico = critico
-        self.golpe_valor = golpe_valor
+# Botón "Comenzar juego" con mejoras para el relieve
+boton_comenzar = tk.Button(ventana_principal, text="Comenzar juego", command=comenzar_juego, font=("Times New Roman", 14), padx=20, pady=10, relief=tk.RAISED, bd=3)  # Añadido relieve y borde
+boton_comenzar.pack(pady=20)  # Espacio vertical alrededor del botón
 
+# Nuevo botón para abrir la ventana emergente
+boton_emergente = tk.Button(ventana_principal, text="Mostrar texto", command=mostrar_texto, font=("Times New Roman", 14), padx=20, pady=10, relief=tk.RAISED, bd=3)
+boton_emergente.pack()
 
-class mago(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, poder_magico):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
-        self.poder_magico = poder_magico
-
-
-class demonio(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, desgaste):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
-        self.desgaste = desgaste
-
-class cerbero(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, ):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
+ventana_principal.mainloop()
