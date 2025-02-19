@@ -1,7 +1,7 @@
 import tkinter
 
 class personaje():
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion):
+    def __init__(self, nombre, vida, vivo, ataque, defensa, suerte, descripcion):
         self.nombre = nombre
         self.vida = vida
         self.estamina = estamina
@@ -23,10 +23,9 @@ class personaje():
             return False
 
 
-
 class tanque(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, tipo, suerte, descripción, megadefensa):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, tipo, suerte, descripción)
+    def __init__(self, nombre, vida, vivo, ataque, defensa, tipo, suerte, descripción, megadefensa):
+        super().__init__(nombre, vida, vivo, ataque, defensa, tipo, suerte, descripción)
         self.megadefensa = megadefensa
 
     def ataque_1(self): #Ataque de personaje
@@ -46,8 +45,8 @@ class tanque(personaje):
 
 
 class asesino(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, evasion, critico):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
+    def __init__(self, nombre, vida, vivo, ataque, defensa, suerte, descripcion, evasion, critico):
+        super().__init__(nombre, vida, vivo, ataque, defensa, suerte, descripcion)
         self.evasion = evasion
         self.critico = critico
 
@@ -68,8 +67,8 @@ class asesino(personaje):
 
 
 class heroe(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, critico, golpe_valor):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
+    def __init__(self, nombre, vida, vivo, ataque, defensa, suerte, descripcion, critico, golpe_valor):
+        super().__init__(nombre, vida, vivo, ataque, defensa, suerte, descripcion)
         self.critico = critico
         self.golpe_valor = golpe_valor
 
@@ -90,8 +89,8 @@ class heroe(personaje):
 
 
 class mago(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, poder_magico):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
+    def __init__(self, nombre, vida, vivo, ataque, defensa, suerte, descripcion, poder_magico):
+        super().__init__(nombre, vida, vivo, ataque, defensa, suerte, descripcion)
         self.poder_magico = poder_magico
 
     def ataque_1(self):#Ataque de personaje
@@ -111,8 +110,8 @@ class mago(personaje):
 
 
 class dario(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, desgaste):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
+    def __init__(self, nombre, vida, vivo, ataque, defensa, suerte, descripcion, desgaste):
+        super().__init__(nombre, vida, vivo, ataque, defensa, suerte, descripcion)
         self.desgaste = desgaste
 
     def ataque_1(self):#Ataque de personaje
