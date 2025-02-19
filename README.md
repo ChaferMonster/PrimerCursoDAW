@@ -57,9 +57,25 @@ Pantalla "Escoger personaje":
         - Botón de "Más información" (Abre ventana de "Información del luchador")
             - Atributos
             - Ataques
+            - Objetos
             - Habilidad especial
-        - Botón de "Seleccionar"
+        - Botón de "Seleccionar" (Pasa a pantalla de "Comienza el juego")
 
+Pantalla "Comienza el juego":
+    - Dario con su vida 
+    - Personaje escogido con su vida
+    - menú:
+        - Botón de ataque 1
+        - Botón de ataque 2
+        - Botón de ataque 3
+        - Boton de menú de objetos:
+            - Objeto 1
+            - objeto 2
+            - objeto 3
+Cosas que suce
+    - Al usar ataque o objeto cambia vida de Dario o de personaje
+    - Cuando ataque nuestro personaje, ataca dario.
+    
 
 
 
