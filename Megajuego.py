@@ -13,10 +13,23 @@ class personaje():
         pass
 
 
+
 class tanque(personaje):
     def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, tipo, suerte, descripción, megadefensa):
         super().__init__(nombre, vida, estamina, vivo, ataque, defensa, tipo, suerte, descripción)
         self.megadefensa = megadefensa
+
+    def ataque_1(self):
+        nombre_ataque = "Escudo antidarius"
+        potencia = 50 + (self.suerte)
+
+    def ataque_2(self):
+        nombre_ataque = "Pisotón antidario"
+        potencia = 40 + (self.suerte)
+
+    def ataque_3(self):
+        nombre_ataque = "Quebrantadarios"
+        potencia = 60 + (self.suerte)
 
 
 class asesino(personaje):
@@ -25,6 +38,18 @@ class asesino(personaje):
         self.evasion = evasion
         self.critico = critico
 
+    def ataque_1(self):
+        nombre_ataque = "Ruleta de la suerte asesina"
+        potencia = 20 + (self.suerte)
+
+    def ataque_2(self):
+        nombre_ataque = "DagametidapordetrasaDario"
+        potencia = 10 + (self.suerte + self.suerte)
+
+    def ataque_3(self):
+        nombre_ataque = "Lluvia de las millones de dagas"
+        potencia = 40 + (self.suerte)
+
 
 class heroe(personaje):
     def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, critico, golpe_valor):
@@ -32,23 +57,60 @@ class heroe(personaje):
         self.critico = critico
         self.golpe_valor = golpe_valor
 
+    def ataque_1(self):
+        nombre_ataque = "Espada penetradora. Pobre Dario"
+        potencia = 60 + (self.suerte)
+
+    def ataque_2(self):
+        nombre_ataque = "Puño del valor"
+        potencia = 30 + (self.suerte)
+
+    def ataque_3(self):
+        nombre_ataque = "Doble espada penetradora"
+        potencia = 10 + (self.suerte + self.suerte)
+
 
 class mago(personaje):
     def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, poder_magico):
         super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
         self.poder_magico = poder_magico
 
+    def ataque_1(self):
+        nombre_ataque = "Bola de permatrago"
+        potencia = 30 + (self.suerte)
 
-class demonio(personaje):
+    def ataque_2(self):
+        nombre_ataque = "Rayo congelabolas"
+        potencia = 30 + (self.suerte)
+
+    def ataque_3(self):
+        nombre_ataque = "MAEB"
+        potencia = 150
+
+
+class dario(personaje):
     def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, desgaste):
         super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
         self.desgaste = desgaste
 
+    def ataque_1(self):
+        nombre_ataque = "FIIIIIU"
+        potencia = 50 + (self.suerte)
 
-class cerbero(personaje):
-    def __init__(self, nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion, ):
-        super().__init__(nombre, vida, estamina, vivo, ataque, defensa, suerte, descripcion)
+    def ataque_2(self):
+        nombre_ataque = "Aplausos"
+        potencia = 30 + (self.suerte)
+
+    def ataque_3(self):
+        nombre_ataque = "Quejas, quejas y más quejas"
+        potencia = 10 + (self.suerte + self.suerte)
+
+    def ataque_4(self):
+        nombre_ataque = "ME F*LLO A TU MADRE"
+        potencia = 80 + (self.suerte)
+
 
 
 class objeto():
-    def __init__()
+    def __init__():
+        pass

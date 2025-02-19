@@ -72,7 +72,7 @@ Pantalla "Comienza el juego":
             - Objeto 1
             - objeto 2
             - objeto 3
-Cosas que suce
+Cosas que sucede al atacar
     - Al usar ataque o objeto cambia vida de Dario o de personaje
     - Cuando ataque nuestro personaje, ataca dario.
     
