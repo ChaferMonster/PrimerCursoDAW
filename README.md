@@ -16,7 +16,6 @@ Comienzo:
 
 Cosas a tener en cuenta:
     - Cuando un personaje muere debe aparecer como muerto.
-    - Un personaje muerto puede revivir si se usa una poción de revivir.
     - Cuando un personaje muere, Dario debe aparecer contra el siguiente personaje que se escoja con la misma vida con la que se ha quedado. anteriormente.
     - Las pociones aumentan atributos como: vida, suerte, fuerza...
 

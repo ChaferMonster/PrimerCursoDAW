@@ -32,17 +32,17 @@ class tanque(personaje):
     def ataque_1(self): #Ataque de personaje
         nombre_ataque = "Escudo antidarius"
         potencia = 50 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_2(self): #Ataque de personaje
         nombre_ataque = "Pisotón antidario"
         potencia = 40 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_3(self):#Ataque de personaje
         nombre_ataque = "Quebrantadarios"
         potencia = 60 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
 
 class asesino(personaje):
@@ -54,17 +54,17 @@ class asesino(personaje):
     def ataque_1(self):#Ataque de personaje
         nombre_ataque = "Ruleta de la suerte asesina"
         potencia = 20 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_2(self):#Ataque de personaje
         nombre_ataque = "DagametidapordetrasaDario"
         potencia = 10 + (self.suerte + self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_3(self):#Ataque de personaje
         nombre_ataque = "Lluvia de las millones de dagas"
         potencia = 40 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
 
 class heroe(personaje):
@@ -76,17 +76,17 @@ class heroe(personaje):
     def ataque_1(self):#Ataque de personaje
         nombre_ataque = "Espada penetradora. Pobre Dario"
         potencia = 60 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_2(self):#Ataque de personaje
         nombre_ataque = "Puño del valor"
         potencia = 30 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_3(self):#Ataque de personaje
         nombre_ataque = "Doble espada penetradora"
         potencia = 10 + (self.suerte + self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
 
 class mago(personaje):
@@ -97,17 +97,17 @@ class mago(personaje):
     def ataque_1(self):#Ataque de personaje
         nombre_ataque = "Bola de permatrago"
         potencia = 30 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_2(self):#Ataque de personaje
         nombre_ataque = "Rayo congelabolas"
         potencia = 30 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_3(self):#Ataque de personaje
         nombre_ataque = "MAEB"
         potencia = 150
-        return potencia
+        return potencia, nombre_ataque
 
 
 class dario(personaje):
@@ -118,22 +118,22 @@ class dario(personaje):
     def ataque_1(self):#Ataque de personaje
         nombre_ataque = "FIIIIIU"
         potencia = 50 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_2(self):#Ataque de personaje
         nombre_ataque = "Aplausos"
         potencia = 30 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_3(self):#Ataque de personaje
         nombre_ataque = "Quejas, quejas y más quejas"
         potencia = 10 + (self.suerte + self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
     def ataque_4(self):#Ataque de personaje
         nombre_ataque = "ME F*LLO A TU MADRE"
         potencia = 80 + (self.suerte)
-        return potencia
+        return potencia, nombre_ataque
 
 
 
