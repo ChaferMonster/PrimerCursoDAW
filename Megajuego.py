@@ -20,6 +20,14 @@ class personaje():
             return True
         else:
             return False
+        
+    def recibir_danio(self, danio):
+        danio_real = max(0, danio - self.defensa)  # El daño se reduce por la defensa, pero nunca es negativo
+        self.vida -= danio_real  # Se resta el daño a la vida
+        if self.vida <= 0:
+            self.vida = 0
+            self.vivo = False  # Marca al personaje como muerto si su vida llega a 0
+        return danio_real  # Retorna el daño que realmente recibió
 
 
 class tanque(personaje):
@@ -134,6 +142,40 @@ class dario(personaje):
         return potencia, nombre_ataque
 
 
+
+class objeto():
+    def __init__(self, cant_usos):
+        self.cant_usos = cant_usos
+
+class pocion(objeto):
+    def __init__(self, cant_usos, cant_cura):
+        super().__init__(cant_usos)
+        self.cant_cura = cant_cura
+
+class superpocion(pocion):
+    def __init__(self, cant_usos, cant_cura):
+        super().__init__(cant_usos, cant_cura)
+
+class mas_ataque(objeto):
+    def __init__(self, cant_usos, suma_fuerza):
+        super().__init__(cant_usos)
+        self.suma_fuerza = suma_fuerza
+
+
+heroe1 = heroe("Leon", 200, True, 10, 5, 3, "Un valiente guerrero", 2, 1)
+asesino1 = asesino("Shadow", 150, True, 12, 3, 5, "Un asesino sigiloso", 8, 4)
+
+# Heroe ataca con su ataque_1
+potencia, nombre_ataque = heroe1.ataque_1()
+print(f"{heroe1.nombre} usa {nombre_ataque} con una potencia de {potencia}!")
+
+# Asesino recibe el daño
+danio_recibido = asesino1.recibir_danio(potencia)
+print(f"{asesino1.nombre} recibe {danio_recibido} de daño. Vida restante: {asesino1.vida}")
+
+# Verificar si sigue vivo
+if not asesino1.vivo:
+    print(f"{asesino1.nombre} ha sido derrotado.")
 
 class objeto():
     def __init__():
