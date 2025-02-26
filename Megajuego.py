@@ -142,7 +142,7 @@ def mostrar_pantalla_batalla(ventana, personaje):
 
     # Cargar la imagen del personaje seleccionado
     try:
-        imagen_personaje_original = Image.open(personaje.imagen)  # Asegúrate de que el objeto `personaje` tenga un atributo `imagen`
+        imagen_personaje_original = Image.open(personaje.imagen)
         imagen_personaje_redimensionada = redimensionar_imagen(imagen_personaje_original, 200, 200)
         imagen_personaje = ImageTk.PhotoImage(imagen_personaje_redimensionada)
     except FileNotFoundError:
@@ -170,6 +170,42 @@ def mostrar_pantalla_batalla(ventana, personaje):
     etiqueta_dario = tk.Label(ventana, image=imagen_dario)
     etiqueta_dario.image = imagen_dario
     etiqueta_dario.pack(side="right", padx=50)
+
+    # Crear un Frame para los botones de los ataques debajo de la imagen del personaje
+    frame_botones = tk.Frame(ventana)
+    frame_botones.pack(side="left", padx=50, pady=(20, 50))  # Coloca el Frame debajo de la imagen del personaje
+
+    # Crear botones de ataque
+    ataques = [
+        personaje.ataque_1(),  # (daño, descripcion)
+        personaje.ataque_2(),
+        personaje.ataque_3()
+    ]
+
+    # Agregar los botones de ataque al frame
+    for ataque, descripcion in ataques:
+        boton_ataque = tk.Button(frame_botones, text=f"{descripcion} - Daño: {ataque}", font=("System", 14, "bold"), command=lambda ataque=ataque: realizar_ataque(ataque))
+        boton_ataque.pack(side="top", pady=10)  # Coloca los botones de arriba a abajo con separación
+
+    # Crear y mostrar la vida del personaje, solo si no existe ya
+    if not hasattr(mostrar_pantalla_batalla, "vida_personaje_label"):
+        mostrar_pantalla_batalla.vida_personaje_label = tk.Label(ventana, text=f"Vida: {personaje.vida}", font=("System", 14))
+        mostrar_pantalla_batalla.vida_personaje_label.pack(side="left", pady=10)  # Colocar debajo de la imagen del personaje
+
+    # Crear y mostrar la vida de Dario, solo si no existe ya
+    if not hasattr(mostrar_pantalla_batalla, "vida_dario_label"):
+        mostrar_pantalla_batalla.vida_dario_label = tk.Label(ventana, text=f"Vida: {dario.vida}", font=("System", 14))
+        mostrar_pantalla_batalla.vida_dario_label.pack(side="right", pady=10)  # Colocar debajo de la imagen de Dario
+
+# Asignamos a dario como objeto
+dario = Dario()
+
+def realizar_ataque(danio):
+    # Función para realizar el ataque y reducir la vida de Dario
+    danio_real = dario.recibir_danio(danio)
+    print(f"Dario recibe {danio_real} de daño.")
+    if dario.vida <= 0:
+        print("¡Dario ha sido derrotado!")
 
 # Función para redimensionar imágenes
 def redimensionar_imagen(imagen_original, ancho, alto):
