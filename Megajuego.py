@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from PIL import Image, ImageTk
 import random
 
@@ -12,8 +13,10 @@ class Personaje:
         self.defensa = defensa
         self.suerte = suerte
         self.descripcion = descripcion
+        self.turnos_mas_ataque = 0  # Rastrear efecto de MasAtaque
 
     def recibir_danio(self, danio):
+        """Calcula y aplica el daño recibido después de la defensa."""
         danio_real = max(0, danio - self.defensa)
         self.vida -= danio_real
         if self.vida <= 0:
@@ -24,12 +27,12 @@ class Personaje:
     def esta_vivo(self):
         return self.vivo
 
-
 class Tanque(Personaje):
     def __init__(self):
-        super().__init__(nombre="Marilu", vida=4000, suerte=int(random.randint(5,12)), ataque=60, defensa=40, descripcion="Marilu la gigante. La única guerrera en aguantar más de 2 minutos hablando con La temida Rosa")
-        self.megadefensa = 20
+        super().__init__(nombre="Marilu", vida=8000, suerte=int(random.randint(5, 12)), ataque=60, defensa=40, descripcion="Marilu la gigante. La única guerrera en aguantar más de 2 minutos hablando con La temida Rosa")
+        self.megadefensa = 20  # Reducción de daño adicional
         self.defensa += self.suerte
+        self.imagen="tanque.png"
 
     def recibir_danio(self, danio):
         danio_reducido = max(0, danio - (self.defensa + self.megadefensa))
@@ -48,15 +51,37 @@ class Tanque(Personaje):
     def ataque_3(self):
         return (60 + self.suerte) * self.ataque, "Quebrantadarios"
 
+class Asesino(Personaje):
+    def __init__(self):
+        super().__init__(nombre="Albertin", vida=6000, suerte=random.randint(5, 25), ataque=100, defensa=0, descripcion="Un asesino letal, ágil y pillín.")
+        self.evasion = random.randint(10, 90)  # Probabilidad de esquivar aleatoria
+        self.defensa += self.suerte
+        self.imagen = "asesino.png"
+
+    def recibir_danio(self, danio):
+        if self.evasion > 80 and random.randint(1, 100) <= self.evasion:
+            print(f"{self.nombre} esquivó el ataque!")
+            return 0  # Esquiva el ataque
+        return super().recibir_danio(danio)
+
+    def ataque_1(self):
+        return (20 + self.suerte) * self.ataque, "Ruleta de la suerte asesina"
+
+    def ataque_2(self):
+        return (10 + (2 * self.suerte)) * self.ataque, "DagametidapordetrasaDario"
+
+    def ataque_3(self):
+        return (40 + self.suerte) * self.ataque, "Lluvia de las millones de dagas"
 
 class Heroe(Personaje):
     def __init__(self):
-        super().__init__(nombre="Turpin", vida=3500, suerte=random.randint(8,15), ataque=80, defensa=10, descripcion="El héroe de una historia mal contada. Siempre dispuesto a inseminarte.")
+        super().__init__(nombre="Turpin", vida=7000, suerte=random.randint(8, 15), ataque=80, defensa=10, descripcion="El héroe de una historia mal contada. Siempre dispuesto a inseminarte.")
         self.defensa += self.suerte
-        self.golpe_valor = 1.5
+        self.golpe_valor = 1.5  # Aumenta el daño cuando tiene poca vida
+        self.imagen = "turpin.png"
 
     def ataque_heroico(self):
-        if self.vida < 1000:
+        if self.vida < 1500:
             return (self.ataque * self.golpe_valor, "Golpe del destino")
         return self.ataque, "Ataque normal"
 
@@ -69,12 +94,12 @@ class Heroe(Personaje):
     def ataque_3(self):
         return (10 + (2 * self.suerte)) * self.ataque, "Doble espada penetradora"
 
-
 class Mago(Personaje):
     def __init__(self):
-        super().__init__(nombre="J.P.", vida=3200, suerte=14, ataque=90, defensa=5, descripcion="Mago olvidadizo, su varita tiene más ideas que él.")
-        self.poder_magico = 1.3
+        super().__init__(nombre="J.P.", vida=6000, suerte=14, ataque=90, defensa=5, descripcion="Mago olvidadizo, su varita tiene más ideas que él.")
+        self.poder_magico = 1.3  # Aumenta el daño de sus ataques mágicos
         self.defensa += self.suerte
+        self.imagen="mago.png"
 
     def ataque_magico(self):
         return self.poder_magico * self.ataque, "Varita venosa"
@@ -88,26 +113,63 @@ class Mago(Personaje):
     def ataque_3(self):
         return 150 * self.ataque, "MAEB"
 
-
-class Asesino(Personaje):
+class Dario(Personaje):
     def __init__(self):
-        super().__init__(nombre="Albertin", vida=3000, suerte=int(random.randint(5,25)), ataque=100, defensa=0, descripcion="Un asesino letal, ágil y pillín. Aprendió sus habilidades de su maestro el Oso Berni.")
-        self.evasion = 30
+        super().__init__(nombre="Dariork", vida=50000, suerte=20, ataque=30, defensa=15, descripcion="Cejas de ques. Teleja. Y los bolsillos naranjas.")
+        self.desgaste = 5  # Reduce la defensa de los enemigos en cada golpe
         self.defensa += self.suerte
+        self.imagen="dario.png"
 
-    def esquivar_ataque(self):
-        from random import randint
-        return randint(1, 100) <= self.evasion
+    def ataque_desgastante(self, objetivo):
+        objetivo.defensa = max(0, objetivo.defensa - self.desgaste)
 
     def ataque_1(self):
-        return (20 + self.suerte) * self.ataque, "Ruleta de la suerte asesina"
+        return (50 + self.suerte) * self.ataque, "Silbido: FIIIIIU"
 
     def ataque_2(self):
-        return (10 + (2 * self.suerte)) * self.ataque, "DagametidapordetrasaDario"
+        return (30 + self.suerte) * self.ataque, "Aplausos"
 
     def ataque_3(self):
-        return (40 + self.suerte) * self.ataque, "Lluvia de las millones de dagas"
+        return (10 + (2 * self.suerte)) * self.ataque, "Quejas, quejas y más quejas"
 
+    def ataque_4(self):
+        return (80 + self.suerte) * self.ataque, "ME F*LLO A TU MADRE"
+
+def mostrar_pantalla_batalla(ventana, personaje):
+    # Ocultar los elementos actuales de la ventana
+    for widget in ventana.winfo_children():
+        widget.pack_forget()
+
+    # Cargar la imagen del personaje seleccionado
+    try:
+        imagen_personaje_original = Image.open(personaje.imagen)  # Asegúrate de que el objeto `personaje` tenga un atributo `imagen`
+        imagen_personaje_redimensionada = redimensionar_imagen(imagen_personaje_original, 200, 200)
+        imagen_personaje = ImageTk.PhotoImage(imagen_personaje_redimensionada)
+    except FileNotFoundError:
+        print(f"Error: No se encontró la imagen '{personaje.imagen}'.")
+        return
+
+    # Cargar imagen del enemigo (dario.png)
+    try:
+        imagen_dario_original = Image.open("dario.png")
+        imagen_dario = ImageTk.PhotoImage(redimensionar_imagen(imagen_dario_original, 250, 250))
+    except FileNotFoundError:
+        print("Error: No se encontró la imagen 'dario.png'.")
+        return
+
+    # Crear un label para mostrar al personaje en la parte izquierda
+    etiqueta_personaje = tk.Label(ventana, image=imagen_personaje)
+    etiqueta_personaje.image = imagen_personaje  # Mantener referencia a la imagen
+    etiqueta_personaje.pack(side="left", padx=50, pady=100)  # Posicionar en la parte izquierda
+
+    # Etiqueta con el mensaje de inicio de batalla
+    etiqueta_batalla = tk.Label(ventana, text="¡La batalla ha comenzado!", font=("System", 30))
+    etiqueta_batalla.place(relx=0.5, rely=0.1, anchor="center")
+
+    # Etiqueta para el personaje dario
+    etiqueta_dario = tk.Label(ventana, image=imagen_dario)
+    etiqueta_dario.image = imagen_dario
+    etiqueta_dario.pack(side="right", padx=50)
 
 # Función para redimensionar imágenes
 def redimensionar_imagen(imagen_original, ancho, alto):
@@ -117,7 +179,7 @@ def redimensionar_imagen(imagen_original, ancho, alto):
 def cargar_imagen_con_transparencia(ruta_imagen):
     # Abrir la imagen en modo RGBA (esto asegura que la imagen tiene canal alfa)
     imagen = Image.open(ruta_imagen).convert("RGBA")
-    
+
     # Si la imagen tiene fondo blanco, hacerlo transparente
     datos = imagen.getdata()
 
@@ -141,7 +203,7 @@ ventana_principal.geometry("650x400")
 # Cargar imágenes
 try:
     imagen_fondo_original = Image.open("fondo.png")
-    imagen_titulo_original = Image.open("hola.png")
+    imagen_titulo_original = Image.open("titulo_juego.png")
     imagen_info_original = Image.open("texto_info.png")
     imagen_boton_original = Image.open("boton.png")
 
@@ -184,7 +246,8 @@ etiqueta_titulo.pack()
 
 # Función para mostrar la pantalla del mago
 def mostrar_mago():
-    global etiqueta_mago, etiqueta_desc_mago, boton_regreso
+    global etiqueta_mago, etiqueta_desc_mago, boton_regreso, personaje_jugador
+    personaje_jugador = Mago() #Asigna el personaje elegido
 
     for widget in ventana_principal.winfo_children():
         widget.pack_forget()
@@ -211,7 +274,8 @@ def mostrar_mago():
 
 # Función para mostrar la pantalla del asesino
 def mostrar_asesino():
-    global etiqueta_asesino, etiqueta_desc_asesino, boton_regreso
+    global etiqueta_asesino, etiqueta_desc_asesino, boton_regreso, personaje_jugador
+    personaje_jugador = Asesino() #Asigna el personaje elegido
 
     for widget in ventana_principal.winfo_children():
         widget.pack_forget()
@@ -238,7 +302,8 @@ def mostrar_asesino():
 
 # Funcion para mostrar la pantalla del tanque
 def mostrar_tanque():
-    global etiqueta_tanque, etiqueta_desc_tanque, boton_regreso
+    global etiqueta_tanque, etiqueta_desc_tanque, boton_regreso, personaje_jugador
+    personaje_jugador = Tanque()
 
     for widget in ventana_principal.winfo_children():
         widget.pack_forget()
@@ -265,7 +330,8 @@ def mostrar_tanque():
 
 # Funcion para mostrar la pantalla del heroe
 def mostrar_heroe():
-    global etiqueta_heroe, etiqueta_desc_heroe, boton_regreso
+    global etiqueta_heroe, etiqueta_desc_heroe, boton_regreso, personaje_jugador
+    personaje_jugador = Heroe()
 
     for widget in ventana_principal.winfo_children():
         widget.pack_forget()
@@ -292,11 +358,10 @@ def mostrar_heroe():
 
 # Función para mostrar la pantalla de batalla
 def pantalla_batalla():
-    for widget in ventana_principal.winfo_children():
-        widget.pack_forget()
+    global personaje_jugador  # Asegúrate de que personaje_jugador sea global si lo necesitas
 
-    etiqueta_batalla = tk.Label(ventana_principal, text="¡La batalla comienza!", font=("System", 18, "bold"))
-    etiqueta_batalla.pack(pady=20)
+    # Llama a la función mostrar_pantalla_batalla
+    mostrar_pantalla_batalla(ventana_principal, personaje_jugador)
 
 # Función cuando el usuario presiona "Comenzar juego"
 def comenzar_juego():
